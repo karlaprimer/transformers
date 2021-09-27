@@ -186,7 +186,8 @@ class DataTrainingArguments:
         else:
             if self.train_file is not None:
                 if os.path.isdir(self.train_file):
-                    for path in Path(self.train_file).glob("*"):
+                    for path in Path(self.train_file).glob("*.*"):
+                        print(path)
                         extension = path.suffix[1:]
                         assert extension in [
                             "csv",
@@ -198,7 +199,7 @@ class DataTrainingArguments:
                     assert extension in ["csv", "json", "txt"], "`train_file` should be a csv, a json or a txt file."
             if self.validation_file is not None:
                 if os.path.isdir(self.validation_file):
-                    for path in Path(self.validation_file).glob("*"):
+                    for path in Path(self.validation_file).glob("*.*"):
                         extension = path.suffix[1:]
                         assert extension in [
                             "csv",
