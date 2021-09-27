@@ -23,6 +23,7 @@ import math
 import os
 import sys
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Optional
 
 import datasets
@@ -184,11 +185,33 @@ class DataTrainingArguments:
             raise ValueError("Need either a dataset name or a training/validation file.")
         else:
             if self.train_file is not None:
-                extension = self.train_file.split(".")[-1]
-                assert extension in ["csv", "json", "txt"], "`train_file` should be a csv, a json or a txt file."
+                if os.path.isdir(self.train_file):
+                    for path in Path(self.train_file).glob("*"):
+                        extension = path.suffix[1:]
+                        assert extension in [
+                            "csv",
+                            "json",
+                            "txt",
+                        ], "`train_file` should be a csv, a json or a txt file."
+                else:
+                    extension = self.train_file.split(".")[-1]
+                    assert extension in ["csv", "json", "txt"], "`train_file` should be a csv, a json or a txt file."
             if self.validation_file is not None:
-                extension = self.validation_file.split(".")[-1]
-                assert extension in ["csv", "json", "txt"], "`validation_file` should be a csv, a json or a txt file."
+                if os.path.isdir(self.validation_file):
+                    for path in Path(self.validation_file).glob("*"):
+                        extension = path.suffix[1:]
+                        assert extension in [
+                            "csv",
+                            "json",
+                            "txt",
+                        ], "`validation_file` should be a csv, a json or a txt file."
+                else:
+                    extension = self.validation_file.split(".")[-1]
+                    assert extension in [
+                        "csv",
+                        "json",
+                        "txt",
+                    ], "`validation_file` should be a csv, a json or a txt file."
 
 
 def main():
