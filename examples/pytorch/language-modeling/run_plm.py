@@ -298,7 +298,7 @@ def main():
         if os.path.isdir(data_args.train_file):
             paths = Path(data_args.train_file).glob("*.*")
             data_files["train"] = [str(path) for path in paths]
-            extension = data_files["train"][0].suffix[1:]
+            extension = data_files["train"][0].split(".")[-1]
         else:
             if data_args.train_file is not None:
                 data_files["train"] = data_args.train_file
