@@ -296,8 +296,8 @@ def main():
     else:
         data_files = {}
         if os.path.isdir(data_args.train_file):
-            # get extension
-            data_files["train"] = list(Path(data_args.train_file).glob("*.*"))
+            paths = Path(data_args.train_file).glob("*.*")
+            data_files["train"] = [str(path) for path in paths]
             extension = data_files["train"][0].suffix[1:]
         else:
             if data_args.train_file is not None:
