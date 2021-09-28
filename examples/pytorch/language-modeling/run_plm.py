@@ -187,7 +187,6 @@ class DataTrainingArguments:
             if self.train_file is not None:
                 if os.path.isdir(self.train_file):
                     for path in Path(self.train_file).glob("*.*"):
-                        print(path)
                         extension = path.suffix[1:]
                         assert extension in [
                             "csv",
@@ -300,7 +299,15 @@ def main():
             data_files["train"] = data_args.train_file
         if data_args.validation_file is not None:
             data_files["validation"] = data_args.validation_file
-        extension = data_args.train_file.split(".")[-1]
+
+        if os.path.isdir(data_files["train"]):
+            paths = Path(data_files["train"]).glob("*.*")
+            path = paths.__next__()
+            extension = path[0].suffix[1:]
+            print("extension:", extension)
+        else:
+            extension = data_args.train_file.split(".")[-1]
+
         if extension == "txt":
             extension = "text"
         raw_datasets = load_dataset(extension, data_files=data_files, cache_dir=model_args.cache_dir)
