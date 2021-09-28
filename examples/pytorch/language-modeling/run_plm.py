@@ -309,7 +309,6 @@ def main():
         if extension == "txt":
             extension = "text"
         raw_datasets = load_dataset(extension, data_files=data_files, cache_dir=model_args.cache_dir)
-        print("raw_datasets:", raw_datasets)
         # If no validation data is there, validation_split_percentage will be used to divide the dataset.
         if "validation" not in raw_datasets.keys():
             raw_datasets["validation"] = load_dataset(
@@ -384,7 +383,6 @@ def main():
     # First we tokenize all the texts.
     if training_args.do_train:
         column_names = raw_datasets["train"].column_names
-        print("column_names:", column_names)
     else:
         column_names = raw_datasets["validation"].column_names
     text_column_name = "text" if "text" in column_names else column_names[0]
@@ -428,6 +426,7 @@ def main():
                 load_from_cache_file=not data_args.overwrite_cache,
                 desc="Running tokenizer on every text in dataset",
             )
+        print("+++++ tokenized:", tokenized_datasets)
 
         # Main data processing function that will concatenate all texts from our dataset and generate chunks of
         # max_seq_length.
@@ -461,6 +460,7 @@ def main():
                 load_from_cache_file=not data_args.overwrite_cache,
                 desc=f"Grouping texts in chunks of {max_seq_length}",
             )
+        print("+++++ grouped:", tokenized_datasets)
 
     if training_args.do_train:
         if "train" not in tokenized_datasets:
