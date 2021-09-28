@@ -303,7 +303,7 @@ def main():
         if os.path.isdir(data_files["train"]):
             paths = Path(data_files["train"]).glob("*.*")
             path = paths.__next__()
-            extension = path[0].suffix[1:]
+            extension = path.suffix[1:]
             print("extension:", extension)
         else:
             extension = data_args.train_file.split(".")[-1]
