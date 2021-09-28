@@ -426,7 +426,6 @@ def main():
                 load_from_cache_file=not data_args.overwrite_cache,
                 desc="Running tokenizer on every text in dataset",
             )
-        print("+++++ tokenized:", tokenized_datasets)
 
         # Main data processing function that will concatenate all texts from our dataset and generate chunks of
         # max_seq_length.
@@ -460,7 +459,6 @@ def main():
                 load_from_cache_file=not data_args.overwrite_cache,
                 desc=f"Grouping texts in chunks of {max_seq_length}",
             )
-        print("+++++ grouped:", tokenized_datasets)
 
     if training_args.do_train:
         if "train" not in tokenized_datasets:
