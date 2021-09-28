@@ -295,17 +295,15 @@ def main():
             )
     else:
         data_files = {}
-        if data_args.train_file is not None:
-            data_files["train"] = data_args.train_file
-        if data_args.validation_file is not None:
-            data_files["validation"] = data_args.validation_file
-
-        if os.path.isdir(data_files["train"]):
-            paths = Path(data_files["train"]).glob("*.*")
-            path = paths.__next__()
-            extension = path.suffix[1:]
-            print("extension:", extension)
+        if os.path.isdir(data_args.train_file):
+            # get extension
+            data_files["train"] = list(Path(data_args.train_file).glob("*.*"))
+            extension = data_files["train"][0].suffix[1:]
         else:
+            if data_args.train_file is not None:
+                data_files["train"] = data_args.train_file
+            if data_args.validation_file is not None:
+                data_files["validation"] = data_args.validation_file
             extension = data_args.train_file.split(".")[-1]
 
         if extension == "txt":
