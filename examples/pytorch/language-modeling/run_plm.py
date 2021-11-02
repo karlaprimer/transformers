@@ -190,7 +190,7 @@ class DataTrainingArguments:
                         extension = path.suffix[1:]
                         assert extension in [
                             "csv",
-                            "json",
+                            "json.gz",
                             "txt",
                         ], "`train_file` should be a csv, a json or a txt file."
                 else:
