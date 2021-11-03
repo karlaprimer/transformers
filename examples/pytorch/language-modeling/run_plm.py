@@ -190,7 +190,7 @@ class DataTrainingArguments:
                         extension = path.suffix[1:]
                         assert extension in [
                             "csv",
-                            "gz",
+                            "json",
                             "txt",
                         ], "`train_file` should be a csv, a json or a txt file."
                 else:
@@ -202,14 +202,14 @@ class DataTrainingArguments:
                         extension = path.suffix[1:]
                         assert extension in [
                             "csv",
-                            "gz",
+                            "json",
                             "txt",
                         ], "`validation_file` should be a csv, a json or a txt file."
                 else:
                     extension = self.validation_file.split(".")[-1]
                     assert extension in [
                         "csv",
-                        "gz",
+                        "json",
                         "txt",
                     ], "`validation_file` should be a csv, a json or a txt file."
 
