@@ -214,6 +214,7 @@ class DataTrainingArguments:
                     ], "`validation_file` should be a csv, a json or a txt file."
 
 
+@profile
 def main():
     # See all possible arguments in src/transformers/training_args.py
     # or by passing the --help flag to this script.
